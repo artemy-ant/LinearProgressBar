@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func startAnimation(_ sender: AnyObject) {
-        self.linearBar.startAnimation()
+        self.linearBar.startAnimation(view: view)
     }
     
     @IBAction func stopAnimation(_ sender: AnyObject) {

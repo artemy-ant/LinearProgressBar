@@ -48,11 +48,11 @@ open class LinearProgressBar: UIView {
             widthForLinearBar = self.screenSize.width
         }
         
-        if (UIDeviceOrientationIsLandscape(UIDevice.current.orientation)) {
+        if (UIDevice.current.orientation.isLandscape) {
            self.frame = CGRect(origin: CGPoint(x: self.frame.origin.x,y :self.frame.origin.y), size: CGSize(width: widthForLinearBar, height: self.frame.height))
         }
         
-        if (UIDeviceOrientationIsPortrait(UIDevice.current.orientation)) {
+        if (UIDevice.current.orientation.isPortrait) {
             self.frame = CGRect(origin: CGPoint(x: self.frame.origin.x,y :self.frame.origin.y), size: CGSize(width: widthForLinearBar, height: self.frame.height))
         }
     }
@@ -60,11 +60,11 @@ open class LinearProgressBar: UIView {
     //MARK: PUBLIC FUNCTIONS    ------------------------------------------------------------------------------------------
     
     //Start the animation
-    open func startAnimation(){
+    open func startAnimation(view: UIView){
         
         self.configureColors()
         
-        self.show()
+        self.show(view: view)
         
         if !isAnimationRunning {
             self.isAnimationRunning = true
@@ -91,18 +91,20 @@ open class LinearProgressBar: UIView {
     
     //MARK: PRIVATE FUNCTIONS    ------------------------------------------------------------------------------------------
     
-    fileprivate func show() {
+    fileprivate func show(view: UIView) {
         
         // Only show once
-        if self.superview != nil {
+        if self.superview == view {
             return
         }
         
+        let superView: UIView = view
+        superView.addSubview(self)
         // Find current top viewcontroller
-        if let topController = getTopViewController() {
-            let superView: UIView = topController.view
-            superView.addSubview(self)
-        }
+//        if let topController = getTopViewController() {
+//            let superView: UIView = topController.view
+//            superView.addSubview(self)
+//        }
     }
     
     fileprivate func configureColors(){
